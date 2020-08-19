@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <dev>
+            <twig>
+                <cache>1</cache>
+                <charset>utf-8</charset>
+                <strict_variables>1</strict_variables>
+            </twig>
+        </dev>
+    </default>
+</config>

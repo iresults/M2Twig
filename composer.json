@@ -1,0 +1,32 @@
+{
+    "name": "iresults/module-m2twig",
+    "description": "Twig 3 Integration for Magento 2",
+    "type": "magento2-module",
+    "license": "OSL-3.0",
+    "authors": [
+        {
+            "name": "Daniel Corn",
+            "email": "cod@iresults.li"
+        },
+        {
+            "name": "Mage2Gen",
+            "email": "info@mage2gen.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.0.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Iresults\\M2Twig\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Iresults\\M2Twig\\Tests\\": "tests"
+        }
+    }
+}
