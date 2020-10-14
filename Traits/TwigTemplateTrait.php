@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Iresults\M2Twig;
+namespace Iresults\M2Twig\Traits;
 
 use Iresults\M2Twig\Framework\View\TemplateEngine\Twig as TwigTemplateEngine;
 use Magento\Framework\App\Filesystem\DirectoryList;
@@ -102,14 +102,22 @@ trait TwigTemplateTrait
         return [];
     }
 
-    protected function registerTwigFunction(TwigTemplateEngine $templateEngine, string $name, callable $callback)
-    {
-        $templateEngine->addFunction(new TwigFunction($name, $callback));
+    protected function registerTwigFunction(
+        TwigTemplateEngine $templateEngine,
+        string $name,
+        callable $callback,
+        array $options = []
+    ) {
+        $templateEngine->addFunction(new TwigFunction($name, $callback, $options));
     }
 
-    protected function registerTwigFilter(TwigTemplateEngine $templateEngine, string $name, callable $callback)
-    {
-        $templateEngine->addFilter(new TwigFilter($name, $callback));
+    protected function registerTwigFilter(
+        TwigTemplateEngine $templateEngine,
+        string $name,
+        callable $callback,
+        array $options = []
+    ) {
+        $templateEngine->addFilter(new TwigFilter($name, $callback, $options));
     }
 
     private function addDefaultFunctionsAndFilters(TwigTemplateEngine $templateEngine)

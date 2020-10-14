@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Iresults\M2Twig\Block;
 
 use Iresults\M2Twig\Framework\View\TemplateEngine\Twig as TwigTemplateEngine;
-use Iresults\M2Twig\TwigTemplateTrait;
+use Iresults\M2Twig\Traits\TwigTemplateTrait;
 use Magento\Framework\View\Element\Template;
 
 class TwigTemplate extends Template
