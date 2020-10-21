@@ -27,7 +27,7 @@ class TwigTemplate extends Template
      *
      * @param TwigTemplateEngine $templateEngine
      */
-    protected function prepareEngine(TwigTemplateEngine $templateEngine)
+    protected function prepareEngine(TwigTemplateEngine $templateEngine): void
     {
     }
 

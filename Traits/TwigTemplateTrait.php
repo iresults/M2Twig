@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Iresults\M2Twig\Traits;
 
+use function array_merge;
+use function get_class;
 use Iresults\M2Twig\Framework\View\TemplateEngine\Twig as TwigTemplateEngine;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\ObjectManager;
@@ -11,14 +13,12 @@ use Magento\Framework\Profiler;
 use Magento\Framework\View\Element\AbstractBlock;
 use Magento\Framework\View\Element\BlockInterface;
 use Magento\Framework\View\TemplateEnginePool;
-use Twig\TwigFilter;
-use Twig\TwigFunction;
-use function array_merge;
-use function get_class;
 use function method_exists;
 use function pathinfo;
-use function strpos;
 use const PATHINFO_EXTENSION;
+use function strpos;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 trait TwigTemplateTrait
 {
@@ -88,7 +88,7 @@ trait TwigTemplateTrait
      *
      * @param TwigTemplateEngine $templateEngine
      */
-    protected function prepareEngine(TwigTemplateEngine $templateEngine)
+    protected function prepareEngine(TwigTemplateEngine $templateEngine): void
     {
     }
 
