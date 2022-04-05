@@ -1,6 +1,6 @@
 {
     "name": "iresults/module-m2twig",
-    "description": "Twig 3 Integration for Magento 2",
+    "description": "src/Twig 3 Integration for Magento 2",
     "type": "magento2-module",
     "license": "OSL-3.0",
     "authors": [
@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Iresults\\M2Twig\\": ""
+            "Iresults\\M2Twig\\": "src"
         },
         "files": [
             "registration.php"
