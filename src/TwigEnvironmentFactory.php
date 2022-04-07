@@ -50,31 +50,22 @@ class TwigEnvironmentFactory
      */
     private $urlBuilder;
 
-    /**
-     * @var FilesystemLoader
-     */
-    private $filesystemLoader;
-
     public function __construct(
         DirectoryList $directoryList,
         ScopeConfigInterface $scopeConfig,
         ManagerInterface $eventManager,
         UrlInterface $urlBuilder,
-        Environment $environment,
         FilesystemLoader $filesystemLoader
     ) {
         $this->directoryList = $directoryList;
         $this->scopeConfig = $scopeConfig;
         $this->eventManager = $eventManager;
-        $this->environment = $environment;
         $this->urlBuilder = $urlBuilder;
-        $this->filesystemLoader = $filesystemLoader;
+        $this->environment = new Environment($filesystemLoader);
     }
 
     /**
      * Initialises Twig with all Magento 2 necessary functions
-     *
-     * @throws FileSystemException
      */
     public function create(): Environment
     {
@@ -95,8 +86,10 @@ class TwigEnvironmentFactory
         } else {
             $environment->disableStrictVariables();
         }
-        $environment->setLoader($this->filesystemLoader);
-        $environment->setCharset($this->scopeConfig->getValue('dev/twig/charset'));
+        $charset = $this->scopeConfig->getValue('dev/twig/charset');
+        if ($charset) {
+            $environment->setCharset($charset);
+        }
 
         $this->registerDefaultFiltersAndFunctions($environment);
         $environment->addExtension(new DebugExtension());
