@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Iresults\M2Twig\Framework\View\TemplateEngine;
@@ -19,52 +20,27 @@ use Twig\TwigFunction;
 
 class Twig extends Php
 {
-    /**
-     * @var Environment
-     */
-    private $twig;
+    private readonly Environment $twig;
 
     /**
-     * @var ScopeConfigInterface
-     */
-    private $scopeConfig;
-
-    /**
-     * @var DirectoryList
-     */
-    private $directoryList;
-
-    /**
-     * Url Builder
-     *
-     * @var UrlInterface
-     */
-    protected $urlBuilder;
-
-    /**
-     * @param ObjectManagerInterface $helperFactory
-     * @param DirectoryList          $directoryList
-     * @param ScopeConfigInterface   $scopeConfig
-     * @param UrlInterface           $urlBuilder
-     * @param TwigEnvironmentFactory $environmentFactory
      * @throws FileSystemException
      */
     public function __construct(
         ObjectManagerInterface $helperFactory,
-        DirectoryList $directoryList,
-        ScopeConfigInterface $scopeConfig,
-        UrlInterface $urlBuilder,
-        TwigEnvironmentFactory $environmentFactory
+        private readonly DirectoryList $directoryList,
+        private readonly ScopeConfigInterface $scopeConfig,
+        protected readonly UrlInterface $urlBuilder,
+        TwigEnvironmentFactory $environmentFactory,
     ) {
         parent::__construct($helperFactory);
-        $this->directoryList = $directoryList;
-        $this->scopeConfig = $scopeConfig;
         $this->twig = $environmentFactory->create();
-        $this->urlBuilder = $urlBuilder;
     }
 
-    public function render(BlockInterface $block, $fileName, array $dictionary = [])
-    {
+    public function render(
+        BlockInterface $block,
+        $fileName,
+        array $dictionary = [],
+    ): string {
         $tmpBlock = $this->_currentBlock;
         $this->_currentBlock = $block;
         $this->twig->addGlobal('block', $block);
@@ -98,7 +74,11 @@ class Twig extends Php
 
     private function getTemplate(string $fileName): TemplateWrapper
     {
-        $path = str_replace($this->directoryList->getPath(DirectoryList::ROOT) . DIRECTORY_SEPARATOR, '', $fileName);
+        $path = str_replace(
+            $this->directoryList->getPath(DirectoryList::ROOT) . DIRECTORY_SEPARATOR,
+            '',
+            $fileName
+        );
 
         return $this->twig->load($path);
     }

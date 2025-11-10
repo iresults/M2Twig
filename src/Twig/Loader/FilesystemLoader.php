@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Iresults\M2Twig\Twig\Loader;
@@ -9,39 +10,25 @@ use Magento\Framework\View\Element\Template\File\Resolver;
 class FilesystemLoader extends \Twig\Loader\FilesystemLoader
 {
     /**
-     * @var DirectoryList
-     */
-    protected $directoryList;
-
-    /**
-     * @var Resolver
-     */
-    protected $resolver;
-
-    /**
-     * Filesystem Loader constructor
-     *
-     * @param DirectoryList $directoryList
-     * @param Resolver      $resolver
-     * @param array         $paths
+     * @param string|string[] $paths
      */
     public function __construct(
-        DirectoryList $directoryList,
-        Resolver $resolver,
-        $paths = []
+        protected readonly DirectoryList $directoryList,
+        protected readonly Resolver $resolver,
+        $paths = [],
     ) {
-        $this->directoryList = $directoryList;
-        $this->resolver = $resolver;
         $paths[] = './';
         parent::__construct($paths, $directoryList->getRoot());
     }
 
-    protected function findTemplate(string $name, bool $throw = true)
+    protected function findTemplate(string $name, bool $throw = true): ?string
     {
-        if (stristr($name, '::') !== false) {
+        if (false !== stristr($name, '::')) {
+            $rootPath = $this->directoryList->getPath(DirectoryList::ROOT)
+                . DIRECTORY_SEPARATOR;
             $templateName = $this->resolver->getTemplateFileName($name);
             $templateName = str_replace(
-                $this->directoryList->getPath(DirectoryList::ROOT) . DIRECTORY_SEPARATOR,
+                $rootPath,
                 '',
                 $templateName
             );

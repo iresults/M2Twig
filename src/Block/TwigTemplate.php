@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Iresults\M2Twig\Block;
@@ -11,12 +12,17 @@ class TwigTemplate extends Template
 {
     use TwigTemplateTrait;
 
-    public function fetchView($fileName)
+    public function fetchView($fileName): string
     {
         if (!$this->validator->isValid($fileName)) {
             return parent::fetchView($fileName);
         } else {
-            return $this->fetchTwigView($fileName, $this->templateEnginePool, $this->templateContext, $this->getData());
+            return $this->fetchTwigView(
+                $fileName,
+                $this->templateEnginePool,
+                $this->templateContext,
+                $this->getData()
+            );
         }
     }
 
@@ -24,8 +30,6 @@ class TwigTemplate extends Template
      * Prepare the Twig Engine
      *
      * Overwrite this method to add additional Filters or Functions to Twig
-     *
-     * @param TwigTemplateEngine $templateEngine
      */
     protected function prepareEngine(TwigTemplateEngine $templateEngine): void
     {
@@ -33,8 +37,6 @@ class TwigTemplate extends Template
 
     /**
      * Return a dictionary of additional view variables
-     *
-     * @return array
      */
     protected function getAdditionalViewVars(): array
     {
